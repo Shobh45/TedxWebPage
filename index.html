@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEDxMDIGurgaon 7.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,900;1,9..144,600&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --ink:#141414;
+    --red:#e62b1e;
+    --red-deep:#a3160c;
+    --white:#f7f4ee;
+    --paper:#efeae1;
+    --gray:#8a8580;
+    --line: rgba(247,244,238,0.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--red);color:var(--white);}
+
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-0.02em;}
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--red);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;height:1px;background:var(--red);
+  }
+
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- signature X-beam divider ---------- */
+  .xbeam{
+    position:relative;
+    height:64px;
+    overflow:hidden;
+  }
+  .xbeam::before{
+    content:'';
+    position:absolute;
+    left:-10%;
+    top:50%;
+    width:120%;
+    height:2px;
+    background:var(--red);
+    transform:translateY(-50%) rotate(-3deg);
+    box-shadow:0 0 24px rgba(230,43,30,0.6);
+  }
+  .xbeam::after{
+    content:'X';
+    position:absolute;
+    right:6%;
+    top:50%;
+    transform:translateY(-58%);
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:2.4rem;
+    color:var(--red);
+    line-height:1;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 32px;
+    mix-blend-mode:difference;
+  }
+  .logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;letter-spacing:-0.01em;}
+  .logo span{color:var(--red);}
+  .navlinks{display:flex;gap:34px;font-size:0.85rem;letter-spacing:0.03em;}
+  .navlinks a{opacity:0.75;transition:opacity .25s;position:relative;}
+  .navlinks a:hover{opacity:1;}
+  .navcta{
+    border:1px solid var(--white);
+    padding:9px 20px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:680px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    overflow:hidden;
+  }
+  .hero-media{
+    position:absolute;inset:0;
+    z-index:0;
+    background:var(--black);
+  }
+  .hero-video{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    filter:grayscale(15%) contrast(1.05) brightness(0.9);
+  }
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.35) 30%, rgba(10,10,10,0.55) 65%, var(--black) 100%);
+    z-index:1;
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    padding:0 32px 64px;
+  }
+  .hero-top{
+    position:absolute;
+    top:110px; left:32px; right:32px;
+    z-index:2;
+    display:flex;justify-content:space-between;align-items:flex-start;
+  }
+  .hero-date{
+    font-family:'Space Mono',monospace;
+    font-size:0.8rem;
+    color:var(--gray);
+    text-align:right;
+    line-height:1.6;
+  }
+  .hero-date b{color:var(--white);}
+
+  .hero-title{
+    font-size:clamp(3.2rem, 11vw, 8.5rem);
+    line-height:0.86;
+    color:var(--white);
+  }
+  .hero-title .x{color:var(--red);}
+  .hero-sub{
+    max-width:520px;
+    margin-top:22px;
+    font-size:1rem;
+    color:var(--paper);
+    opacity:0.85;
+    line-height:1.55;
+  }
+
+  .quote-card{
+    margin-top:36px;
+    max-width:640px;
+    border-left:2px solid var(--red);
+    padding-left:20px;
+  }
+  .quote-card p{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.05rem,2vw,1.4rem);
+    line-height:1.4;
+    color:var(--white);
+  }
+  .quote-card .attrib{
+    margin-top:10px;
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    color:var(--red);
+    text-transform:uppercase;
+  }
+
+  .hero-bottom-row{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-top:44px;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .cta-primary{
+    background:var(--red);
+    color:var(--white);
+    padding:16px 30px;
+    border-radius:999px;
+    font-size:0.9rem;
+    font-weight:600;
+    letter-spacing:0.02em;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    transition:transform .3s, background .3s;
+  }
+  .cta-primary:hover{background:var(--red-deep);transform:translateY(-2px);}
+
+  .scroll-cue{
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    color:var(--gray);
+    display:flex;align-items:center;gap:10px;
+    text-transform:uppercase;
+  }
+  .scroll-cue .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--red);
+    animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:0.4;}}
+
+  /* ---------- THEME REVEAL (curtain split) ---------- */
+  .theme-section{
+    position:relative;
+    min-height:100vh;
+    background:var(--black);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:120px 32px;
+    overflow:hidden;
+  }
+  .curtain{
+    position:absolute;inset:0;
+    display:flex;
+    z-index:1;
+    pointer-events:none;
+  }
+  .curtain .panel{
+    flex:1;
+    background:var(--red);
+    transition:transform 1.1s cubic-bezier(.65,0,.35,1);
+  }
+  .curtain .panel.l{transform:translateX(0);}
+  .curtain .panel.r{transform:translateX(0);}
+  .theme-section.open .curtain .panel.l{transform:translateX(-100%);}
+  .theme-section.open .curtain .panel.r{transform:translateX(100%);}
+
+  .theme-inner{
+    position:relative;z-index:2;
+    text-align:center;
+    max-width:820px;
+  }
+  .theme-inner .eyebrow{justify-content:center;margin-bottom:18px;}
+  .theme-inner .eyebrow::before{display:none;}
+  .theme-title{
+    font-size:clamp(2.4rem,7vw,5.5rem);
+    line-height:0.95;
+    color:var(--white);
+  }
+  .theme-title em{
+    font-style:italic;
+    color:var(--red);
+  }
+  .theme-desc{
+    margin-top:26px;
+    color:var(--gray);
+    font-size:1.02rem;
+    line-height:1.7;
+    max-width:600px;
+    margin-left:auto;margin-right:auto;
+  }
+  .theme-note{
+    margin-top:30px;
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;
+    color:var(--red);
+    opacity:0.75;
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- SPEAKERS ---------- */
+  .speakers-section{
+    padding:120px 0 100px;
+    background:var(--black);
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:56px;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  .section-head h2{
+    font-size:clamp(2.2rem,5vw,3.6rem);
+    line-height:0.95;
+  }
+  .section-head .desc{
+    max-width:340px;
+    color:var(--gray);
+    font-size:0.92rem;
+    line-height:1.6;
+  }
+
+  .speaker-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .speaker-card{
+    background:var(--black);
+    padding:30px 22px 26px;
+    position:relative;
+    overflow:hidden;
+    transition:background .35s;
+    cursor:default;
+  }
+  .speaker-card:hover{background:var(--ink);}
+  .speaker-num{
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;
+    color:var(--gray);
+  }
+  .speaker-photo{
+    width:100%;
+    aspect-ratio:3/4;
+    margin:18px 0 20px;
+    background:
+      linear-gradient(160deg, #2a2a2a 0%, #161616 100%);
+    border-radius:2px;
+    position:relative;
+    overflow:hidden;
+  }
+  .speaker-photo img{
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:top center;
+    filter:grayscale(100%) contrast(1.08) brightness(0.95);
+    transition:filter .4s;
+    display:block;
+  }
+  .speaker-card:hover .speaker-photo img{filter:grayscale(0%) contrast(1.05);}
+  .speaker-photo.monogram{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:3rem;
+    color:var(--red);
+    letter-spacing:0.02em;
+  }
+  .speaker-photo::after{
+    content:'';
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 55%, rgba(230,43,30,0.18) 100%);
+    opacity:0;
+    transition:opacity .35s;
+    pointer-events:none;
+  }
+  .speaker-card:hover .speaker-photo::after{opacity:1;}
+  .speaker-name{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.2rem;
+  }
+  .speaker-role{
+    margin-top:6px;
+    font-size:0.8rem;
+    color:var(--gray);
+  }
+  .speaker-topic{
+    margin-top:14px;
+    font-size:0.78rem;
+    color:var(--red);
+    font-family:'Space Mono',monospace;
+    letter-spacing:0.02em;
+  }
+
+  @media (max-width:900px){
+    .speaker-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ---------- TICKETS ---------- */
+  .tickets-section{
+    padding:110px 0 130px;
+    background:var(--paper);
+    color:var(--black);
+    position:relative;
+  }
+  .tickets-section .eyebrow::before{background:var(--red);}
+  .tickets-section .section-head h2{color:var(--black);}
+  .tickets-section .section-head .desc{color:#5a544c;}
+
+  .ticket-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .ticket-card{
+    background:var(--black);
+    color:var(--white);
+    border-radius:6px;
+    padding:34px 28px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    min-height:340px;
+  }
+  .ticket-card.featured{
+    background:var(--red);
+  }
+  .ticket-tier{
+    font-family:'Space Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    opacity:0.8;
+  }
+  .ticket-price{
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:2.6rem;
+    margin:14px 0 4px;
+  }
+  .ticket-price sup{font-size:1rem;font-weight:600;margin-right:2px;}
+  .ticket-unit{font-size:0.8rem;opacity:0.65;margin-bottom:22px;}
+  .ticket-feats{
+    list-style:none;
+    font-size:0.86rem;
+    line-height:2;
+    opacity:0.9;
+    flex:1;
+  }
+  .ticket-feats li::before{
+    content:'· ';
+    opacity:0.5;
+  }
+  .ticket-btn{
+    margin-top:24px;
+    display:inline-flex;
+    justify-content:center;
+    padding:13px 0;
+    border-radius:999px;
+    border:1px solid var(--white);
+    font-size:0.85rem;
+    letter-spacing:0.02em;
+    font-weight:600;
+    transition:all .25s;
+  }
+  .ticket-card:not(.featured) .ticket-btn:hover{background:var(--white);color:var(--black);}
+  .ticket-card.featured .ticket-btn{border-color:var(--black);}
+  .ticket-card.featured .ticket-btn:hover{background:var(--black);color:var(--white);}
+
+  @media (max-width:860px){
+    .ticket-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--black);
+    padding:60px 0 36px;
+    border-top:1px solid var(--line);
+  }
+  .footer-row{
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:20px;
+  }
+  .footer-links{display:flex;gap:26px;font-size:0.82rem;color:var(--gray);}
+  .footer-links a:hover{color:var(--white);}
+  .footer-copy{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--gray);margin-top:30px;}
+
+  /* reveal-on-scroll utility */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">TED<span>x</span>MDIGurgaon</div>
+  <div class="navlinks">
+    <a href="#theme">Theme</a>
+    <a href="#speakers">Speakers</a>
+    <a href="#tickets">Tickets</a>
+  </div>
+  <a href="#tickets" class="navcta">Book Seat</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-media" id="heroMedia">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="assets/hero-clip.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-scrim"></div>
+
+  <div class="hero-top">
+    <span class="eyebrow" style="color:var(--gray)"><span style="width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;"></span>Independently organized TED event</span>
+    <div class="hero-date"><b>7.0</b><br>MDI Gurgaon Campus<br>Date TBA · Gurugram</div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">Ideas worth<br>the <span class="x">x</span>.</h1>
+    <p class="hero-sub">TEDx7.0 by TEDxMDIGurgaon brings together voices that shift perspective: one stage, one day, ideas that don't leave the way they came in.</p>
+
+    <div class="quote-card">
+      <p>“ Individually as Indians, we are unbeatable. We are excellent. There is no doubt about it. ”</p>
+      <div class="attrib">Dr. Dheeraj Dogra, "Beyond Brick and Mortar" · TEDxMDIGurgaon 6.0</div>
+    </div>
+
+    <div class="hero-bottom-row">
+      <a href="#tickets" class="cta-primary">Reserve your seat →</a>
+      <div class="scroll-cue"><span class="dot"></span> Scroll to reveal the theme</div>
+    </div>
+  </div>
+</header>
+
+<div class="xbeam"></div>
+
+<!-- ================= THEME REVEAL ================= -->
+<section class="theme-section" id="theme">
+  <div class="curtain"><div class="panel l"></div><div class="panel r"></div></div>
+  <div class="theme-inner reveal">
+    <span class="eyebrow">Theme Reveal · TEDx7.0</span>
+    <h2 class="theme-title">Every idea starts<br>as an <em>interruption</em>.</h2>
+    <p class="theme-desc">Beyond Boundaries: Exploring ideas that challenge limits—whether in technology, business, society, or personal growth.</p>
+    <div class="theme-note"></div>
+  </div>
+</section>
+
+<div class="xbeam"></div>
+
+<!-- ================= SPEAKERS ================= -->
+<section class="speakers-section" id="speakers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Lineup</span>
+        <h2 style="margin-top:14px;">Speakers of<br>TEDx7.0</h2>
+      </div>
+      <p class="desc">Four voices, four fields, one stage. Confirmed lineup drops as speakers are locked in.</p>
+    </div>
+
+    <div class="speaker-grid">
+      <div class="speaker-card reveal">
+        <div class="speaker-num">01</div>
+        <div class="speaker-photo" id="photo01"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nitin_Gadkari_1_(cropped).JPG" alt="Nitin Gadkari" loading="lazy" onerror="this.parentElement.classList.add('monogram');this.parentElement.textContent='NG';"></div>
+        <div class="speaker-name">Nitin Gadkari</div>
+        <div class="speaker-role">Union Minister, Road Transport & Highways</div>
+        <div class="speaker-topic">On building roads that build a nation</div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-num">02</div>
+        <div class="speaker-photo"><img src="assets/ankur-warikoo.png" alt="Ankur Warikoo" loading="lazy"></div>
+        <div class="speaker-name">Ankur Warikoo</div>
+        <div class="speaker-role">Entrepreneur & Content Creator</div>
+        <div class="speaker-topic">On unlearning what school taught you</div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-num">03</div>
+        <div class="speaker-photo" id="photo03"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ritwik_Bhowmik_at_the_screening_of_film_Maja_Ma.jpg" alt="Ritwik Bhowmik" loading="lazy" onerror="this.parentElement.classList.add('monogram');this.parentElement.textContent='RB';"></div>
+        <div class="speaker-name">Ritwik Bhowmik</div>
+        <div class="speaker-role">Actor</div>
+        <div class="speaker-topic">On finding character before fame</div>
+      </div>
+      <div class="speaker-card reveal">
+        <div class="speaker-num">04</div>
+        <div class="speaker-photo" id="photo04"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Terence Lewis.jpg" alt="Terence Lewis" loading="lazy" onerror="this.parentElement.classList.add('monogram');this.parentElement.textContent='TL';"></div>
+        <div class="speaker-name">Terence Lewis</div>
+        <div class="speaker-role">Choreographer & Dancer</div>
+        <div class="speaker-topic">On the body as an instrument of change</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="xbeam"></div>
+
+<!-- ================= TICKETS ================= -->
+<section class="tickets-section" id="tickets">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Access</span>
+        <h2 style="margin-top:14px;">Book your seat</h2>
+      </div>
+      <p class="desc">Limited seats. Every tier gets you in the room; the rest is how close you sit to the ideas.</p>
+    </div>
+
+    <div class="ticket-grid">
+      <div class="ticket-card reveal">
+        <div class="ticket-tier">General</div>
+        <div class="ticket-price"><sup>₹</sup>999</div>
+        <div class="ticket-unit">per seat</div>
+        <ul class="ticket-feats">
+          <li>Full-day access</li>
+          <li>All talk sessions</li>
+          <li>Networking breaks</li>
+          <li>Event kit</li>
+        </ul>
+        <a href="#" class="ticket-btn">Select</a>
+      </div>
+      <div class="ticket-card featured reveal">
+        <div class="ticket-tier">Premium</div>
+        <div class="ticket-price"><sup>₹</sup>1,999</div>
+        <div class="ticket-unit">per seat</div>
+        <ul class="ticket-feats">
+          <li>Front-section seating</li>
+          <li>Meet & greet access</li>
+          <li>Lunch included</li>
+          <li>Event kit + merch</li>
+        </ul>
+        <a href="#" class="ticket-btn">Select</a>
+      </div>
+      <div class="ticket-card reveal">
+        <div class="ticket-tier">Student</div>
+        <div class="ticket-price"><sup>₹</sup>499</div>
+        <div class="ticket-unit">per seat · valid ID</div>
+        <ul class="ticket-feats">
+          <li>Full-day access</li>
+          <li>All talk sessions</li>
+          <li>Networking breaks</li>
+        </ul>
+        <a href="#" class="ticket-btn">Select</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="logo">TED<span>x</span>MDIGurgaon</div>
+      <div class="footer-links">
+        <a href="#theme">Theme</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#tickets">Tickets</a>
+      </div>
+    </div>
+    <div class="footer-copy">This independent TEDx event is operated under license from TED.</div>
+  </div>
+</footer>
+
+<script>
+  // Curtain reveal on scroll into theme section
+  const themeSection = document.querySelector('.theme-section');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        themeSection.classList.add('open');
+      }
+    });
+  },{threshold:0.4});
+  io.observe(themeSection);
+
+  // Generic reveal-on-scroll for cards/sections
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        revealIO.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>revealIO.observe(el));
+</script>
+
+</body>
+</html>
